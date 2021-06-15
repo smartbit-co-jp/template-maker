@@ -19,6 +19,7 @@
         method="put"
         action="{{ action('Vue\DocumentTemplateController@update', $documentTemplate) }}"
         >
+        test
             <template v-slot:body="{form}">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-xl-8">
