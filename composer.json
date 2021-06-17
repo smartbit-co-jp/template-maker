@@ -5,13 +5,13 @@
         "smartbit",
         "template-maker"
     ],
-    "homepage": "https://github.com/smartbit/document-template-editor",
+    "homepage": "https://github.com/smartbit-co-jp/template-maker",
     "license": "MIT",
     "type": "library",
     "authors": [
         {
-            "name": "SB",
-            "email": "sb@gmail.com",
+            "name": "SmartBit",
+            "email": "amano@smartbit.co.jp",
             "role": "Developer"
         }
     ],
