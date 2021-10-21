@@ -293,7 +293,7 @@ class TemplateMaker
 
         $data = compact('title', 'contents');
 
-        return view('components.template-maker.list-group-item-class', $data)->render();
+        return view('template-maker::template-maker.list-group-item-class', $data)->render();
     }
 
     public function makeItem($item, $model, $field)
@@ -302,35 +302,35 @@ class TemplateMaker
         $key = $item['key'];
         $formated_key = "@($key)";
         
-        $content = View::make('components.template-maker.list-group-item-key',compact('formated_key'));
+        $content = View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
 
         if ($model) {
-            if(has_kana($model,$field)) {
-                $formated_key = "@($item[key]:kana)";
-                $content .= View::make('components.template-maker.list-group-item-key',compact('formated_key'));
-            }
-            if (has_romaji($model, $field)) {
-                $formated_key = "@($item[key]:".fallback_locale().")";
-                $content .= View::make('components.template-maker.list-group-item-key',compact('formated_key'));
-                $formated_key = "@($item[key]:romaji)";
-                $content .= View::make('components.template-maker.list-group-item-key',compact('formated_key'));
-            } elseif (method_exists($model, 'isTranslatableAttribute') && $model->isTranslatableAttribute($field)) {
+            // if(has_kana($model,$field)) {
+            //     $formated_key = "@($item[key]:kana)";
+            //     $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
+            // }
+            // if (has_romaji($model, $field)) {
+            //     $formated_key = "@($item[key]:".fallback_locale().")";
+            //     $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
+            //     $formated_key = "@($item[key]:romaji)";
+            //     $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
+            // } elseif (method_exists($model, 'isTranslatableAttribute') && $model->isTranslatableAttribute($field)) {
                 foreach ($this->locales as $locale) {
                     $formated_key = "@({$key}:{$locale})";
-                    $content .= View::make('components.template-maker.list-group-item-key',compact('formated_key'));
+                    $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
                 }
-            }
+            // }
             
         }elseif($item['type'] == 'collection'){
             foreach ($this->locales as $locale) {
                 $formated_key = "@({$key}:{$locale})";
-                $content .= View::make('components.template-maker.list-group-item-key',compact('formated_key'));
+                $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
             }
         }
 
         $data = compact('label', 'content', 'key');
 
-        return view('components.template-maker.list-group-item', $data)->render();
+        return view('template-maker::template-maker.list-group-item', $data)->render();
     }
 
     public function processAttributes(array $attributes, $model = null)
@@ -358,9 +358,9 @@ class TemplateMaker
         $data = compact('id', 'title', 'contents');
 
         if ( $card ) {
-            return view('components.template-maker.list-group', $data)->render();
+            return view('template-maker::template-maker.list-group', $data)->render();
         } else {
-            return view('components.template-maker.list-group-item-class', $data)->render();
+            return view('template-maker::template-maker.list-group-item-class', $data)->render();
         }
 
     }

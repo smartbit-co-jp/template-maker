@@ -85,9 +85,9 @@ class TemplateController extends BaseController
      */
     public function edit(Template $template)
     {
-        $template = Template::InRandomOrder()->first();
+        $template = Template::whereType('sample')->InRandomOrder()->first();
 
-        $locales = ['ja'];
+        $locales = ['en'];
         $locale = 'ja';
         $lang = $locale;
 

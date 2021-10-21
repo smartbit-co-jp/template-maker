@@ -24,7 +24,7 @@ class PdfPreviewController extends BaseController
         $template = Template::first();
 
         // dd($template);
-        dd($request);
+        // dd($request);
 
         $html = $template->data['ja'];
         $css = $template->style['ja'];
