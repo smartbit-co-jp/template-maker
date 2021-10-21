@@ -21,32 +21,15 @@ class TemplateController extends BaseController
      */
     public function index()
     {
-        $template_types = Template::getTypes();
-        foreach ($template_types as $type) {
-        	$stored_templates[$type] = Template::where('type', $type)->get();
+        $types = [];
+        foreach (Template::getTypes() as $type) {
+            $types[$type] = [
+                'stored_templates' => Template::whereType($type)->get()
+            ];
         }
-        $subtab = '';
-        return view('template-maker::index', compact('subtab', 'template_types', 'stored_templates'));
-    }
 
-    public function export(DocumentTemplate $documentTemplate, ExportDocumentTemplateRequest $request): ?JsonResponse
-    {
-        try {
-            $file_name = $documentTemplate->export();
-            return response()->json(['file_name' => $file_name]);
-        } catch (Throwable $th) {
-            return response()->json(['exceptions' => [$th->getMessage()]], Response::HTTP_BAD_REQUEST);
-        }
-    }
-
-    public function import(DocumentTemplate $documentTemplate, ExportDocumentTemplateRequest $request): ?JsonResponse
-    {
-        try {
-            $documentTemplate->import();
-            return response()->json(['saved' => true]);
-        } catch (Throwable $th) {
-            return response()->json(['exceptions' => [$th->getMessage()]], Response::HTTP_BAD_REQUEST);
-        }
+        $stored_templates = '';
+        return view('template-maker::index', compact('types', 'stored_templates'));
     }
 
     /**
@@ -70,15 +53,15 @@ class TemplateController extends BaseController
             'type' => 'required'
         ]);
 
-        $template = DocumentTemplate::make(request()->type);
-        $template->locale = fallback_locale();
-        $template->is_default = haken()->documentTemplates()->where('type', request()->type)->get()->count() == 0;
+        $template = Template::make(request()->type);
+        $template->locale = 'ja';
+        $template->is_default = 0;
 
-        haken()->documentTemplates()->save($template);
+        $template->save();
 
         if ($template->id) {
-            return redirect()->action('DocumentTemplateController@edit', $template)
-                ->with('sucess', __('document_template.create_success'));
+            return redirect()->route('template.edit', $template)
+                ->with('sucess', __('Template created with success.'));
         }
 
         return redirect()->back()->with('wanrnig', __('document_template.save_failed'));
@@ -102,24 +85,20 @@ class TemplateController extends BaseController
      */
     public function edit(Template $template)
     {
-        // $templater = new TemplateMaker($documentTemplate->type, haken()->languages);
+        $template = Template::InRandomOrder()->first();
 
-        // $doc_types = DocumentTemplate::getTypes();
-        // $lang = request()->lang??fallback_locale();
-        $lang = 'en';
-        // if (haken()->languages->contains($lang)) {
-        //     if($lang != fallback_locale()) {
-        //         if(!$documentTemplate->hasLocale($lang)) {
-        //             $documentTemplate->addLocale($lang);
-        //             $documentTemplate->save();
-        //         }
-        //     }
-        // } else {
-        //     abort(404);
-        // }
+        $locales = ['ja'];
+        $locale = 'ja';
+        $lang = $locale;
 
-        return view('template-maker::edit', compact('lang'));
-        // return view('template-maker::edit', compact('documentTemplate','lang','doc_types', 'templater'));
+        $templater = new TemplateMaker($template->type, $locales);
+
+        $doc_types = Template::getTypes();
+        return view(
+            'template-maker::edit', 
+            compact('template', 'lang', 'doc_types', 'templater')
+        );
+        //     compact('documentTemplate','lang','doc_types', 'templater')
     }
 
     public function getTemplates(string $type)

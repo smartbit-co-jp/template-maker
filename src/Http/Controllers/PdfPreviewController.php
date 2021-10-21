@@ -2,13 +2,15 @@
 
 namespace SmartBit\TemplateMaker\Http\Controllers;
 
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use SmartBit\Models\TemplateMaker;
+use SmartBit\TemplateMaker\Models\TemplateMaker;
+use SmartBit\TemplateMaker\Models\Template;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 use stdClass;
 use Illuminate\Support\Facades\View;
 
-class PdfPreviewController extends Controller
+class PdfPreviewController extends BaseController
 {
     /**
      * @param Request $request
@@ -16,15 +18,35 @@ class PdfPreviewController extends Controller
      * 
      * @return PDF
      */
-    public function show(Request $request, DocumentTemplate $documentTemplate)
+    public function show(Request $request, Template $template)
     {
-        dump($request);
-        dd($documentTemplate);
-        $html = $documentTemplate->data[fallback_locale()];
-        $css = $documentTemplate->style[fallback_locale()];
-	
-        $pdf = PDF::loadView('components.template-maker.base-layout', compact('css', 'html'));
+        // todo didnt load dynamically from request's data -> $template
+        $template = Template::first();
 
-        return $pdf->stream($documentTemplate->name.'.pdf');
+        // dd($template);
+        dd($request);
+
+        $html = $template->data['ja'];
+        $css = $template->style['ja'];
+    
+        $pdf = PDF::loadView('template-maker::base-layout', compact('css', 'html'));
+
+        return $pdf->stream($template->name.'.pdf');
+
+
+
+
+
+
+        // $t = new TemplateMaker('sample', ['en']);
+
+        // $html = file_get_contents($t->layout_path);
+        // $css = file_get_contents($t->style_path);
+        // $pdf = PDF::loadView('template-maker::base-layout', compact('css', 'html'));
+
+        // $pdf = PDF::loadHtml($html);
+
+
+        // return $pdf->stream($type . '.pdf');
 	}
 }

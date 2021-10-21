@@ -28,44 +28,6 @@ class Template extends Model
         });
     }
 
-    /**
-     * @throws Throwable
-     */
-    public function export(): string
-    {
-        $fileName = $this->generateFileName();
-        $type = request('type') === 'html' ? 'data' : 'style';
-        try {
-            self::createIfNotExists(storage_path('document_template'));
-            file_put_contents(storage_path('/document_template/' . $fileName), $this->{$type}[request('lang')]);
-            return $fileName;
-        }catch (Throwable $th) {
-            throw $th;
-        }
-    }
-
-    public static function createIfNotExists(string $folderName): void
-    {
-        if (!file_exists($folderName)) {
-            mkdir($folderName, 0777, true);
-        }
-    }
-
-    /**
-     * @throws FileNotFoundException
-     */
-    public function import(): void
-    {
-        if (! $content = $this->getFile()) {
-            throw new FileNotFoundException();
-        }
-
-        $type = request('type') === 'html' ? 'data' : 'style';
-        $data = $this->{$type};
-        $data[request('lang')] = $content;
-        $this->{$type} = $data;
-        $this->save();
-    }
 
     public function generateFileName(): string
     {
@@ -83,19 +45,19 @@ class Template extends Model
 
     static function make($type)
     {
-        $template = new DocumentTemplate();
+        $template = new Template();
         $template->type = $type;
-        $template->name = '書類テンプレート' . carbon('')->format('Y-m-d H:i:s');
+        $template->name = '書類テンプレート' . date('Y-m-d H:i:s');
         // $config_path = config('template-maker.path') . $template->type . '/template_config.json';
         $layout_path = config('template-maker.path') . $template->type . '/template_layout.html';
         $style_path = config('template-maker.path')  . $template->type . '/template_style.css';
 
         $template->data = [
-            fallback_locale() => file_get_contents($layout_path)
+            'ja' => file_get_contents($layout_path)
         ];
 
         $template->style = [
-            fallback_locale() => file_get_contents($style_path)
+            'ja' => file_get_contents($style_path)
         ];
 
         return $template;
@@ -174,9 +136,6 @@ class Template extends Model
 		$path = config('template-maker.paths')[$type];
 		$json = file_get_contents($path);
 		$arr = json_decode($json, true);
-		
-		// return $path;
-		// die($json);
 		return $arr;
 	}
 

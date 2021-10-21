@@ -1,0 +1,185 @@
+{
+    "notice_group": {
+        "type": "group",
+        "label": "contract.notice",
+        "attributes": {
+            "document_date": {
+                "type": "attribute",
+                "key": "document_date",
+                "label": "global.contract_date",
+                "format": "date|Y年m月d日"
+            },
+            "note": {
+                "type": "attribute",
+                "key": "note",
+                "label": "notice.note"
+            }
+        }
+    },
+	"kobetsu_group": {
+		"type": "group",
+		"label": "kobetsu.kobetsu_contract",
+		"attributes": {
+            "insurances": {
+                "type": "collection",
+                "class": "App\\Employee\\Insurance",
+                "template": "components.template-maker.notice.employee-insurances",
+                "key": "employee.insurances",
+                "label": "global.insurance.title"
+            },
+			"kobetsu_number": {
+				"type": "attribute",
+				"key": "kobetsu.number",
+				"label": "kobetsu.number"
+			},
+			"contract_date": {
+				"type": "attribute",
+				"format": "date|Y年m月d日",
+				"key": "kobetsu.contract_date",
+				"label": "kobetsu.contract_date"
+			},
+			"start": {
+				"type": "attribute",
+				"key": "haken_kikan.start",
+				"label": "kobetsu.contract_start",
+				"format": "date|Y年m月d日"
+			},
+			"end": {
+				"type": "attribute",
+				"key": "haken_kikan.end",
+				"label": "kobetsu.contract_end",
+				"format": "date|Y年m月d日"
+			},
+			"contract_period": {
+				"type": "attribute",
+				"key": "contract_period",
+				"label": "kobetsu.contract_period",
+				"template": "components.template-maker.notice.contract-period"
+			},
+			"limit_to_workers_under_agreement": {
+				"type": "attribute",
+				"key": "limit_to_workers_under_agreement",
+				"label": "kobetsu.limit_to_workers_under_agreement.label",
+                "template": "components.template-maker.notice.limit-workers-under-agreement"
+            }
+		}
+	},
+    "haken_group": {
+        "type": "group",
+        "label": "haken.label",
+        "attributes": {
+            "representative": {
+                "type": "attribute",
+                "key": "haken.representative",
+                "label": "haken.company.representative"
+            },
+            "haken_info": {
+                "type": "model",
+                "class": "App\\Haken\\HakenInfo",
+                "label": "haken.label",
+                "attributes": {
+                    "name": {
+                        "type": "attribute",
+                        "key": "haken.name",
+                        "label": "haken.name"
+                    },
+                    "permission_number": {
+                        "type": "attribute",
+                        "key": "haken.permission_number",
+                        "label": "haken.permission_number"
+                    },
+                    "phone_with_extension": {
+                        "type": "attribute",
+                        "key": "haken.phone",
+                        "label": "global.phone"
+                    },
+                    "fax": {
+                        "type": "attribute",
+                        "key": "haken.fax",
+                        "label": "global.fax"
+                    },
+                    "zip": {
+                        "type": "attribute",
+                        "key": "haken.address.zip",
+                        "label": "global.address.zip"
+                    },
+                    "province": {
+                        "type": "attribute",
+                        "key": "haken.address.province",
+                        "label": "global.address.province"
+                    },
+                    "city": {
+                        "type": "attribute",
+                        "key": "haken.address.city",
+                        "label": "global.address.city"
+                    },
+                    "town": {
+                        "type": "attribute",
+                        "key": "haken.address.town",
+                        "label": "global.address.town"
+                    },
+                    "other": {
+                        "type": "attribute",
+                        "key": "haken.address.other",
+                        "label": "global.address.other"
+                    }
+                }
+            }
+        }
+    },
+    "client_group": {
+        "type": "group",
+        "label": "client.label",
+        "attributes": {
+            "client_name": {
+                "type": "attribute",
+                "key": "client.name",
+                "label": "client.name"
+            }
+        }
+    },
+    "employee_group": {
+        "type": "group",
+        "label": "employee.label",
+        "attributes": {
+            "person": {
+                "type": "model",
+                "class": "App\\Person",
+                "attributes": {
+                    "name": {
+                        "type": "attribute",
+                        "key": "employee.name",
+                        "label": "person.name"
+                    },
+                    "tsuushoumei": {
+                        "type": "attribute",
+                        "key": "employee.tsuushoumei",
+                        "label": "person.tsuushoumei.label"
+                    },
+                    "time_card_name": {
+                        "type": "attribute",
+                        "key": "employee.time_card_name",
+                        "label": "person.time_card_name"
+                    },
+                    "birthday": {
+                        "type": "attribute",
+                        "key": "employee.birthday",
+                        "label": "person.birthday"
+                    },
+                    "gender": {
+                        "type": "attribute",
+                        "key": "employee.gender",
+                        "format": "gender",
+                        "label": "person.gender"
+                    }
+                }
+            },
+            "person_age": {
+                "type": "attribute",
+                "key": "employee.age",
+                "label": "person.age",
+				"template": "components.template-maker.notice.person-age"
+            }
+        }
+    }
+}

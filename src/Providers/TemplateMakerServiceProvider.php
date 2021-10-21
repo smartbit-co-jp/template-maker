@@ -30,9 +30,9 @@ class TemplateMakerServiceProvider extends ServiceProvider
             // ], 'views');
 
             // Publishing assets.
-            /*$this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/document-template-editor'),
-            ], 'assets');*/
+            $this->publishes([
+                __DIR__.'/../resources/assets' => public_path('vendor/template-maker'),
+            ], 'assets');
 
             // Publishing the translation files.
             /*$this->publishes([

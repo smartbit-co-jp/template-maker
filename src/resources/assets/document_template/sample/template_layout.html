@@ -1,0 +1,95 @@
+<body style="font-size: 10pt; color: #333;">
+	<table style="margin-bottom: 10px; width:100%">
+		<tr>
+			<td width="30%"></td>
+			<td width="40%" style="font-size: 2em; text-align: center;">派遣先通知書</td>
+			<td width="30%" style="font-size: 0.8em;">
+				<table style="text-align: center; width: 100%;">
+					<tr>
+						<td>@(document_date)</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+	<table class="table-layout-row" style="margin-bottom: 20px;">
+		<tr>
+			<td colspan="3" style="font-size: 1.5em;" class="align-top">
+				@(client.name)　様
+			</td>
+		</tr>
+		<tr>
+			<td width="60%"></td>			
+			<td width="12%"><small>（所在地）</small></td>
+			<td width="28%"><small>@(haken.address.province)@(haken.address.city)@(haken.address.town)@(haken.address.other)</small></td>
+		</tr>
+		<tr>
+			<td width="60%"></td>
+			<td width="12%"><small>（事業所名）</small></td>
+			<td width="28%"><small>@(haken.name)</small></td>
+		</tr>
+		<tr>
+			<td width="60%"></td>
+			<td width="12%"><small>（代表者名）</small></td>
+			<td width="28%"><small>@(haken.representative)</small></td>
+		</tr>
+		<tr>
+			<td width="60%"></td>
+			<td width="12%"><small>（許可番号）</small></td>
+			<td width="28%"><small>@(haken.permission_number)</small></td>
+		</tr>
+	</table>
+	<div>
+		&nbsp;@(kobetsu.contract_date)に締結した労働者派遣契約、契約番号.@(kobetsu.number)に基づき次の者を派遣します。
+	</div>
+	<table class="table-layout">
+		<tr class="notice-table-tr">
+			<td width="30%" style="border:0; padding: 0;"></td>
+			<td width="50%" style="border:0; padding: 0;"></td>
+		</tr>
+
+
+
+		<tr class="notice-table-tr">
+			<td class="">フリガナ</td>
+			<td class="">@(employee.name:kana)</td>
+		</tr>
+		<tr class="notice-table-tr">
+			<td class="">氏名</td>
+			<td class="">@(employee.name)</td>
+		</tr>
+		<tr class="notice-table-tr">
+			<td class="">性別</td>
+			<td class="">@(employee.gender)</td>
+		</tr>
+		<tr class="notice-table-tr">
+			<td class="">年齢に関する事項</td>
+			<td class="">@(employee.age)</td>
+		</tr>
+		<tr class="notice-table-tr">
+			<td class="">雇用期間</td>
+			<td>@(contract_period)</td>
+		</tr>
+		<tr class="notice-table-tr">
+			<td class="">待遇決定方式</td>
+			<td class="">@(limit_to_workers_under_agreement)</td>
+		</tr>
+		<tr class="notice-table-tr">
+			<td class="">労働・社会保険の被保険者資格取得届の有無及び確認資料</td>
+			<td class="">
+				@(employee.insurances)
+			</td>
+		</tr>
+		<tr class="notice-table-tr">
+			<td class="">備考</td>
+			<td class="">@(note)</td>
+		</tr>
+	</table>
+	<div style="margin-top: 10px;">
+		（注）労働・社会保険の取得届の提出が「無」の場合、具体的な理由を記載すること。<br>
+		【例：１週間の所定就業時間が15時間のため。　他】<br>
+		（注）被保険者証の写し等の提出は労働者本人の同意を得ることが原則。同意が得られない場合、生年月日、年齢を黒塗りするとともに、確認後は派遣元に返却するよう派遣先に依頼する。確認書類は、各種資格取得届の事業主控えの写しでも可。<br>
+		（注）通知した内容のうち、*印の部分（無期雇用か有期雇用か、60歳以上の者であるか否かm許定対象派遣労働者であるか否か、各種保険の加入状況）については、変更があった場合には、遅滞なく再度通知すること。
+	</div>
+</body>

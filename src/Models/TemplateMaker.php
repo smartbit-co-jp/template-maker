@@ -27,9 +27,9 @@ class TemplateMaker
     {
         $this->type = $type;
         $this->locales = $locales;
-        $this->config_path = config('document-templates.path').$this->type.'/template_config.json';
-        $this->layout_path = config('document-templates.path').$this->type.'/template_layout.html';
-        $this->style_path = config('document-templates.path').$this->type.'/template_style.css';
+        $this->config_path = config('template-maker.path').$this->type.'/template_config.json';
+        $this->layout_path = config('template-maker.path').$this->type.'/template_layout.html';
+        $this->style_path = config('template-maker.path').$this->type.'/template_style.css';
     }
 
     public function getKeyList($model)

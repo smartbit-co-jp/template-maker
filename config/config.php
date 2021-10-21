@@ -16,11 +16,9 @@ return [
  //     *    )
  //     */
     'types' => [
-        'kobetsu',
-        'roudou',
-        'working_condition',
-        'notice',
-        'ledger'
+        'sample',
+        'other sample',
+        'another sample'
     ],
     'classes' => [
         // 'kobetsu' => 'App\Kobetsu',
@@ -31,11 +29,11 @@ return [
     ],
     'path' => base_path('resources/assets/document_template/'),
     'paths' => [
-        // 'kobetsu'           => base_path('resources/assets/document_template/kobetsu/template_config.json'),
-        // 'roudou'            => base_path('resources/assets/document_template/roudou/template_config.json'),
-        // 'working_condition' => base_path('resources/assets/document_template/working_condition/template_config.json'),
-        // 'notice'            => base_path('resources/assets/document_template/notice/template_config.json'),
-        // 'ledger'            => base_path('resources/assets/document_template/ledger/template_config.json'),
+        'sample'           => base_path('resources/assets/document_template/sample/template_config.json'),
+        'roudou'            => base_path('resources/assets/document_template/roudou/template_config.json'),
+        'working_condition' => base_path('resources/assets/document_template/working_condition/template_config.json'),
+        'notice'            => base_path('resources/assets/document_template/notice/template_config.json'),
+        'ledger'            => base_path('resources/assets/document_template/ledger/template_config.json'),
     ],
     'formaters' => [
         'phone'           => 'App\CustomClasses\Phone',
