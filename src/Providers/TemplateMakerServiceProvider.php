@@ -21,8 +21,8 @@ class TemplateMakerServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('config.php'),
-            ], 'config');
+                __DIR__.'/../../config/config.php' => config_path('template-maker.php'),
+            ], 'template-maker-config');
 
             // Publishing the views.
             // $this->publishes([
