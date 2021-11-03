@@ -10,7 +10,7 @@ use SmartBit\TemplateMaker\Models\Template;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use SmartBit\TemplateMakerEditor;
-use Support\Requests\ExportDocumentTemplateRequest;
+use Support\Requests\ExportTemplateRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -74,17 +74,18 @@ class TemplateController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\DocumentTemplate  $documentTemplate
+     * @param  \App\Template  $template
      * @return \Illuminate\Http\Response
      */
-    public function show(DocumentTemplate $documentTemplate)
+    public function show(Template $template)
     {
+        dd($template);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\DocumentTemplate  $documentTemplate
+     * @param  \App\Template  $template
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -113,7 +114,7 @@ class TemplateController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\DocumentTemplate  $documentTemplate
+     * @param  \App\Template  $template
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Template $template)
@@ -148,19 +149,19 @@ class TemplateController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\DocumentTemplate  $documentTemplate
+     * @param  \App\Template  $template
      * @return \Illuminate\Http\Response
      */
-    public function destroy(DocumentTemplate $documentTemplate)
+    public function destroy(Template $template)
     {
         $url = app('url')->previous();
 
         $url = urlAppendQuery($url,[
             'tab' => 'documents',
-            'subtab' => $documentTemplate->type,
+            'subtab' => $template->type,
         ]);
             
-        if($documentTemplate->delete()) {
+        if($template->delete()) {
             return redirect()->to($url)->with('success', __('global.deleted'));
         } else {
             flashError(__('global.delete.failed'));
