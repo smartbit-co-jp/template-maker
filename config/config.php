@@ -16,9 +16,8 @@ return [
  //     *    )
  //     */
     'types' => [
-        'sample',
-        'other sample',
-        'another sample'
+        'sample',    
+        'new sample',    
     ],
     'classes' => [
         // 'kobetsu' => 'App\Kobetsu',

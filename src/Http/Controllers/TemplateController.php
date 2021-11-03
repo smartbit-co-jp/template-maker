@@ -3,6 +3,8 @@
 namespace SmartBit\TemplateMaker\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use SmartBit\TemplateMaker\Models\TemplateMaker;
 use SmartBit\TemplateMaker\Models\Template;
 use Illuminate\Http\JsonResponse;
@@ -14,6 +16,8 @@ use Throwable;
 
 class TemplateController extends BaseController
 {
+    use AuthorizesRequests, ValidatesRequests;
+
     /**
      * Display a listing of the resource.
      *
@@ -83,12 +87,11 @@ class TemplateController extends BaseController
      * @param  \App\DocumentTemplate  $documentTemplate
      * @return \Illuminate\Http\Response
      */
-    public function edit(Template $template)
+    public function edit($id)
     {
-        $template = Template::whereType('sample')->InRandomOrder()->first();
-
-        $locales = ['en'];
-        $locale = 'ja';
+        $template = Template::find($id);
+        $locales = ['ja', 'en'];
+        $locale = 'en';
         $lang = $locale;
 
         $templater = new TemplateMaker($template->type, $locales);
@@ -98,7 +101,6 @@ class TemplateController extends BaseController
             'template-maker::edit', 
             compact('template', 'lang', 'doc_types', 'templater')
         );
-        //     compact('documentTemplate','lang','doc_types', 'templater')
     }
 
     public function getTemplates(string $type)
@@ -114,16 +116,32 @@ class TemplateController extends BaseController
      * @param  \App\DocumentTemplate  $documentTemplate
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, DocumentTemplate $documentTemplate)
+    public function update(Request $request, Template $template)
     {
-        if($request->make_default) {
-            haken()->documentTemplates()->where('type', $documentTemplate->type)
-                                        ->update(['is_default' => false]);
 
-            $documentTemplate->is_default = true;
-            $documentTemplate->save();
+        if($request->make_default) {
+            dump($template);
+            dd($request);
+            // haken()->documentTemplates()->where('type', $documentTemplate->type)
+            //                             ->update(['is_default' => false]);
+
+            // $documentTemplate->is_default = true;
+            // $documentTemplate->save();
 
             return redirect()->back()->with('success', __('document_template.edit_success'));
+        } else {
+            $form = $request->form_data;
+
+
+            $template->data = $form['data'];
+            $template->style = $form['style'];
+            $template->name = $form['name'];
+            $template->type = $form['type'];
+            $template->locale = $form['locale'];
+
+            $template->update();
+
+            return response()->json(['message' => __('global.update.success'), 'model' => $template, 'request' => $request->form_data, 'data' => $template->data['en']]);
         }
     }
 

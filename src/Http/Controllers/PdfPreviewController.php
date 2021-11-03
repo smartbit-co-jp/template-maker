@@ -23,8 +23,6 @@ class PdfPreviewController extends BaseController
         // todo didnt load dynamically from request's data -> $template
         $template = Template::first();
 
-        // dd($template);
-        // dd($request);
 
         $html = $template->data['ja'];
         $css = $template->style['ja'];

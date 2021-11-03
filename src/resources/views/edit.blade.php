@@ -31,7 +31,10 @@
                                         <b-form-input v-model="form.name"></b-form-input>
                                     </div>
                                     <div class="text-right">
-                                        <button type="submit" class="btn btn-success btn-sm mr-2">Save</button>
+                                        {{-- <button type="submit" class="btn btn-success btn-sm mr-2">Save</button> --}}
+                                        <b-button variant="success" size="sm" class="mr-2" @click="form.send()">
+                                            {{ __('global.save') }}
+                                        </b-button>
                                         {{-- TODO habilitar esses botões quando estiver funcionando o editor de template --}}
                                         {{-- @if (request()->has('html'))
                                             <a href="{{action('DocumentTemplateController@edit',[$documentTemplate->parent??$documentTemplate,'lang'=>$lang])}}"
@@ -48,6 +51,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <pre>
+
+                            </pre>
                             {{-- TODO habilitar essa condicional quando estiver funcionando o editor de template --}}
                             {{-- @if (!request()->has('html') && false) --}}
                             <basic-editor api-key="{{ config('app.tinymce_api_key') }}" v-if="form.data"

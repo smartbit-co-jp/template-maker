@@ -18,13 +18,15 @@ use SmartBit\TemplateMaker\Models\Template;
 |
 */
 
-Route::get('/preview/pdf/{template}', [PdfPreviewController::class, 'show'])->name('pdf_preview');
-
-// Route::get('/preview/pdf/{type}', [PdfPreviewController::class, 'show'])->name('pdf_preview');
-
-
-// Route::get('/preview/pdf/{documentTemplate}', [PdfPreviewController::class, 'show']);
-// Route::post('document_template/{documentTemplate}/import', [TemplateController::class, 'import']);
-// Route::post('document_template/{documentTemplate}/export', [TemplateController::class, 'export']);
-Route::resource('template', TemplateController::class);
-// Route::resource('template-maker', TemplateMakerController::class);
+Route::middleware(['web'])->group(function () {
+    Route::get('/preview/pdf/{template}', [PdfPreviewController::class, 'show'])->name('pdf_preview');
+    
+    // Route::get('/preview/pdf/{type}', [PdfPreviewController::class, 'show'])->name('pdf_preview');
+    
+    
+    // Route::get('/preview/pdf/{documentTemplate}', [PdfPreviewController::class, 'show']);
+    // Route::post('document_template/{documentTemplate}/import', [TemplateController::class, 'import']);
+    // Route::post('document_template/{documentTemplate}/export', [TemplateController::class, 'export']);
+    Route::resource('template', TemplateController::class);
+    // Route::resource('template-maker', TemplateMakerController::class);
+});

@@ -31,8 +31,11 @@ class TemplateMakerServiceProvider extends ServiceProvider
 
             // Publishing assets.
             $this->publishes([
-                __DIR__.'/../resources/assets' => public_path('vendor/template-maker'),
+                __DIR__.'/../resources/assets' => public_path('resources/template-maker'),
             ], 'assets');
+
+            // Command To publish files
+            // php artisan vendor:publish --tag=public --force
 
             // Publishing the translation files.
             /*$this->publishes([

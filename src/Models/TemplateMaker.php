@@ -305,21 +305,21 @@ class TemplateMaker
         $content = View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
 
         if ($model) {
-            // if(has_kana($model,$field)) {
-            //     $formated_key = "@($item[key]:kana)";
-            //     $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
-            // }
-            // if (has_romaji($model, $field)) {
-            //     $formated_key = "@($item[key]:".fallback_locale().")";
-            //     $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
-            //     $formated_key = "@($item[key]:romaji)";
-            //     $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
-            // } elseif (method_exists($model, 'isTranslatableAttribute') && $model->isTranslatableAttribute($field)) {
+            if(function_exists('has_kana') && has_kana($model,$field)) {
+                $formated_key = "@($item[key]:kana)";
+                $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
+            }
+            if (function_exists('has_romaji') && has_romaji($model, $field)) {
+                $formated_key = "@($item[key]:".fallback_locale().")";
+                $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
+                $formated_key = "@($item[key]:romaji)";
+                $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
+            } elseif (method_exists($model, 'isTranslatableAttribute') && $model->isTranslatableAttribute($field)) {
                 foreach ($this->locales as $locale) {
                     $formated_key = "@({$key}:{$locale})";
                     $content .= View::make('template-maker::template-maker.list-group-item-key',compact('formated_key'));
                 }
-            // }
+            }
             
         }elseif($item['type'] == 'collection'){
             foreach ($this->locales as $locale) {
