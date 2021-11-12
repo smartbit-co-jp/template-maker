@@ -22,7 +22,6 @@ class CreateDocumentTemplatesTable extends Migration
             $table->boolean('is_default')->default(false);
             $table->string('locale')->default('ja');
             $table->unsignedInteger('team_id')->nullable();
-            $table->unsignedInteger('parent_id')->nullable();
             $table->timestamps();
         });
     }
