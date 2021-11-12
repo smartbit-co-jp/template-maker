@@ -8,46 +8,46 @@
                     <div class="col-12">
                         <h3> Template Types </h3>
                         @foreach ($types as $type=>$value)
-                            <b-col>
+                            <div class="col-12">
                                 <h4>> {{$type}}</h4>
-                                <b-row>
-                                    <b-col>
+                                <div class="row">
+                                    <div class="col-12">
                                         -> Templates
-                                        <b-row>
-                                            <b-col>
+                                        <div class="row">
+                                            <div class="col-12">
                                                 Default(<a href="{{ route('pdf_preview', $type) }}">PDF</a>)
-                                            </b-col>
-                                        </b-row>
+                                            </div>
+                                        </div>
                                         @foreach ($value['stored_templates'] as $index=>$template)
-                                            <b-row>
-                                                <b-col>
+                                            <div class="row">
+                                                <div class="col-12">
                                                     <a href="{{ route('template.edit', $template) }}">
                                                         Edit
                                                     </a> || || ||
                                                     <a href="{{ route('pdf_preview', $template) }}">
                                                         Preview
                                                     </a> || || ||
-                                                    {{$index}} -> 
+                                                    {{$template->id}} -> 
                                                     <a href="{{ route('template.edit', $template) }}">
                                                         {{$template->name}}
                                                     </a>
-                                                </b-col>
-                                            </b-row>
+                                                </div>
+                                            </div>
                                         @endforeach
-                                        <b-row>
-                                            <b-col>
+                                        <div class="row">
+                                            <div class="col-12">
                                                 <form method="POST" action="{{ route('template.store', $type) }}" aria-labelledby="triggerId">
                                                     @csrf
                                                     <button type="submit" class="dropdown-item" name="type" value="{{$type}}">
                                                         Add Variation
                                                     </button>
                                                 </form>
-                                            </b-col>
-                                        </b-row>
+                                            </div>
+                                        </div>
 
-                                    </b-col>
-                                </b-row>
-                            </b-col>
+                                    </div>
+                                </div>
+                            </div>
                             <br><br>
                         @endforeach
 

@@ -17,22 +17,19 @@ return [
  //     */
     'types' => [
         'sample',    
-        'new sample',    
+        'company_contract',    
     ],
     'classes' => [
-        // 'kobetsu' => 'App\Kobetsu',
+        'company_contract' => 'App\\Models\\Company',
         // 'roudou' => 'App\Roudou',
         // 'working_condition' => 'App\WorkingCondition',
         // 'notice' => 'App\WorkingCondition\Notice',
         // 'ledger' => 'App\Kobetsu\Ledger',
     ],
-    'path' => base_path('resources/assets/document_template/'),
+    'path' => base_path('resources/assets/template-maker/document_template/'),
     'paths' => [
-        'sample'           => base_path('resources/assets/document_template/sample/template_config.json'),
-        'roudou'            => base_path('resources/assets/document_template/roudou/template_config.json'),
-        'working_condition' => base_path('resources/assets/document_template/working_condition/template_config.json'),
-        'notice'            => base_path('resources/assets/document_template/notice/template_config.json'),
-        'ledger'            => base_path('resources/assets/document_template/ledger/template_config.json'),
+        'sample'           => base_path('resources/assets/template-maker/document_template/sample/template_config.json'),
+        'company_contract'           => base_path('resources/assets/template-maker/document_template/company_contract/template_config.json'),
     ],
     'formaters' => [
         'phone'           => 'App\CustomClasses\Phone',

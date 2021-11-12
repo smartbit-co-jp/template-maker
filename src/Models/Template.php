@@ -53,11 +53,13 @@ class Template extends Model
         $style_path = config('template-maker.path')  . $template->type . '/template_style.css';
 
         $template->data = [
-            'ja' => file_get_contents($layout_path)
+            'ja' => file_get_contents($layout_path),
+            'en' => file_get_contents($layout_path)
         ];
 
         $template->style = [
-            'ja' => file_get_contents($style_path)
+            'ja' => file_get_contents($style_path),
+            'en' => file_get_contents($style_path)
         ];
 
         return $template;

@@ -10,7 +10,7 @@ use SmartBit\TemplateMaker\Models\Template;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use SmartBit\TemplateMakerEditor;
-use Support\Requests\ExportTemplateRequest;
+use Support\Requests\ExportDocumentTemplateRequest;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -58,7 +58,7 @@ class TemplateController extends BaseController
         ]);
 
         $template = Template::make(request()->type);
-        $template->locale = 'ja';
+        $template->locale = 'en';
         $template->is_default = 0;
 
         $template->save();
@@ -74,18 +74,17 @@ class TemplateController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Template  $template
+     * @param  \App\DocumentTemplate  $documentTemplate
      * @return \Illuminate\Http\Response
      */
-    public function show(Template $template)
+    public function show(DocumentTemplate $documentTemplate)
     {
-        dd($template);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Template  $template
+     * @param  \App\DocumentTemplate  $documentTemplate
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -114,7 +113,7 @@ class TemplateController extends BaseController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Template  $template
+     * @param  \App\DocumentTemplate  $documentTemplate
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Template $template)
@@ -149,21 +148,23 @@ class TemplateController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Template  $template
+     * @param  \App\DocumentTemplate  $documentTemplate
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Template $template)
+    public function destroy(DocumentTemplate $documentTemplate)
     {
         $url = app('url')->previous();
 
+        // check if its using this helpers method, else remove/update
         $url = urlAppendQuery($url,[
             'tab' => 'documents',
-            'subtab' => $template->type,
+            'subtab' => $documentTemplate->type,
         ]);
             
-        if($template->delete()) {
+        if($documentTemplate->delete()) {
             return redirect()->to($url)->with('success', __('global.deleted'));
         } else {
+            // check if its using the helper method, else remove/update it
             flashError(__('global.delete.failed'));
             return redirect()->to($url);
         }

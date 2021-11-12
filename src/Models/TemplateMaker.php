@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\View;
 use Log;
 use stdClass;
 use Throwable;
+use Exception;
 
 class TemplateMaker
 {
@@ -118,7 +119,7 @@ class TemplateMaker
                 $key_values[$key_name] = "{$model->$attribute_name}";
             }
         } catch (\Throwable $th) {
-            sbLog($th);
+            throw new Exception($th->getMessage());
         }
 
         if (object_get($model, $attribute_name . '_kana')) {
